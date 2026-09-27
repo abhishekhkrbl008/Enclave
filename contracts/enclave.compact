@@ -89,7 +89,7 @@ export circuit enterRoom(roomIndex: Uint<8>): [] {
   usedNullifiers.insert(nullifier);
 
   const current = roomVisits.lookup(disclose(roomIndex));
-  roomVisits.insert(disclose(roomIndex), current + 1);
+  roomVisits.insert(disclose(roomIndex), (current + 1) as Counter);
 }
 
 // Convener closes the enclave. Past entries remain recorded; no further
