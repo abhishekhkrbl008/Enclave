@@ -111,7 +111,7 @@ export class StandaloneConfig implements Config {
   }
   privateStateStoreName = 'bboard-private-state';
   logDir = path.resolve(currentDir, '..', 'logs', 'standalone', `${new Date().toISOString()}.log`);
-  zkConfigPath = path.resolve(currentDir, '..', '..', 'contracts', 'src', 'managed', 'bboard');
+  zkConfigPath = path.resolve(currentDir, '..', '..', 'contracts', 'src', 'managed', 'enclave');
   generateDust = false;
   explorerUrl = '';
 }
@@ -123,7 +123,7 @@ export class PreviewRemoteConfig implements Config {
   }
   privateStateStoreName = 'bboard-private-state';
   logDir = path.resolve(currentDir, '..', 'logs', 'preview-remote', `${new Date().toISOString()}.log`);
-  zkConfigPath = path.resolve(currentDir, '..', '..', 'contracts', 'src', 'managed', 'bboard');
+  zkConfigPath = path.resolve(currentDir, '..', '..', 'contracts', 'src', 'managed', 'enclave');
   generateDust = true;
   explorerUrl = 'https://explorer.preview.midnight.network/contracts/stream/{contractAddress}';
 }
@@ -135,7 +135,7 @@ export class PreprodRemoteConfig implements Config {
   }
   privateStateStoreName = 'bboard-private-state';
   logDir = path.resolve(currentDir, '..', 'logs', 'preprod-remote', `${new Date().toISOString()}.log`);
-  zkConfigPath = path.resolve(currentDir, '..', '..', 'contracts', 'src', 'managed', 'bboard');
+  zkConfigPath = path.resolve(currentDir, '..', '..', 'contracts', 'src', 'managed', 'enclave');
   generateDust = true;
   explorerUrl = 'https://explorer.preprod.midnight.network/contracts/stream/{contractAddress}';
 }
