@@ -17,7 +17,8 @@ export interface InjectedWallet {
   name: string;
   apiVersion: string;
   isEnabled: () => Promise<boolean>;
-  enable: () => Promise<WalletApi>;
+  enable?: () => Promise<WalletApi>;
+  connect?: (networkId?: string) => Promise<any>;
 }
 
 export interface WalletApi {
@@ -67,9 +68,33 @@ export async function connectWallet(walletId?: string): Promise<{
     throw new Error("The requested wallet is not installed.");
   }
 
-  const api = await target.wallet.enable();
-  const state = await api.state();
-  const serviceUriConfig = api.serviceUriConfig ? await api.serviceUriConfig() : undefined;
+  let api: any;
+  if (typeof target.wallet.connect === "function") {
+    try {
+      api = await target.wallet.connect("preprod");
+    } catch {
+      api = await target.wallet.connect();
+    }
+  } else if (typeof target.wallet.enable === "function") {
+    api = await target.wallet.enable();
+  } else {
+    throw new Error(`Wallet ${target.wallet.name} does not provide enable() or connect().`);
+  }
 
-  return { address: state.address, walletName: target.wallet.name, api, serviceUriConfig };
+  let address = "";
+  if (api.state && typeof api.state === "function") {
+    const state = await api.state();
+    address = state.address;
+  } else if (api.address) {
+    address = api.address;
+  }
+
+  let serviceUriConfig;
+  if (api.serviceUriConfig && typeof api.serviceUriConfig === "function") {
+    serviceUriConfig = await api.serviceUriConfig();
+  } else if (api.getConfiguration && typeof api.getConfiguration === "function") {
+    serviceUriConfig = await api.getConfiguration();
+  }
+
+  return { address, walletName: target.wallet.name, api, serviceUriConfig };
 }
