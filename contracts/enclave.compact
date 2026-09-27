@@ -46,7 +46,7 @@ constructor(
   labels: Vector<3, Opaque<"string">>,
   numRooms: Uint<8>,
   root: Bytes<32>
-): [] {
+) {
   assert(numRooms >= 1 && numRooms <= 3, "enclave needs 1-3 rooms");
   enclaveName = disclose(name);
   roomLabels = disclose(labels);
