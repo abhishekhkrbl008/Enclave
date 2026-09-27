@@ -76,7 +76,7 @@ export circuit enterRoom(roomIndex: Uint<8>): [] {
   const leaf = persistentHash<Bytes<32>>(secret);
   assert(path.leaf == leaf, "path leaf does not match secret");
   const computedRoot = merkleTreePathRoot<10, Bytes<32>>(path);
-  assert(computedRoot == allowlistRoot, "not on the allowlist");
+  assert(upgradeFromTransient(computedRoot.field) == allowlistRoot, "not on the allowlist");
 
   const nullifier = persistentHash<Vector<3, Bytes<32>>>(
     [
