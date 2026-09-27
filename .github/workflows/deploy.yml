@@ -61,7 +61,7 @@ jobs:
           npx tsx src/launcher/deploy-enclave.ts
         env:
           NODE_OPTIONS: "--max-old-space-size=8192 --expose-gc"
-          WALLET_SEED: "myth useful toy raven march sunset glare jealous feed human glide right exist ghost thunder master peasant check smoke garlic boost candy flame arch"
+          WALLET_SEED: "8D48F508A21C7223A75D853428E439CFA92A9F293E0B1ADBE405E9FA79E6C530D11C03FD490A20E14A8D5EAD19635C11042ECAB747E786822E19239D3378A9C1"
 
       - name: Upload Deployment Info
         if: always()
