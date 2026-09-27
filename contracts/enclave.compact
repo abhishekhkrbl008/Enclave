@@ -23,7 +23,7 @@ import CompactStandardLibrary;
 export ledger enclaveName: Opaque<"string">;
 export ledger roomLabels: Vector<3, Opaque<"string">>;
 export ledger roomCount: Uint<8>;
-export ledger roomVisits: Map<Uint<8>, Counter>;   // roomIndex -> entry count
+export ledger roomVisits: Map<Uint<8>, Field>;   // roomIndex -> entry count
 export ledger usedNullifiers: Set<Bytes<32>>;
 export ledger allowlistRoot: Bytes<32>;             // Merkle root of member leaves
 export ledger isOpen: Boolean;
@@ -55,7 +55,7 @@ export circuit openEnclave(
   isOpen = true;
   for (const i of 0..3) {
     if ((i as Uint<8>) < numRooms) {
-      roomVisits.insert(disclose(i as Uint<8>), default<Counter>);
+      roomVisits.insert(disclose(i as Uint<8>), 0);
     }
   }
 }
@@ -89,7 +89,7 @@ export circuit enterRoom(roomIndex: Uint<8>): [] {
   usedNullifiers.insert(nullifier);
 
   const current = roomVisits.lookup(disclose(roomIndex));
-  roomVisits.insert(disclose(roomIndex), ((current + 1) % 1000000000) as Counter);
+  roomVisits.insert(disclose(roomIndex), current + 1);
 }
 
 // Convener closes the enclave. Past entries remain recorded; no further
