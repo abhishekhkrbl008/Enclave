@@ -89,6 +89,7 @@ export circuit enterRoom(roomIndex: Uint<8>): [] {
   usedNullifiers.insert(nullifier);
 
   const current = roomVisits.lookup(disclose(roomIndex));
+  assert(current < 4294967295, "Counter overflow");
   roomVisits.insert(disclose(roomIndex), (current + 1) as Counter);
 }
 
