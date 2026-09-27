@@ -41,7 +41,7 @@ witness memberPath(): MerkleTreePath<10, Bytes<32>>;
 
 // Convener opens the enclave with 1-3 named rooms and publishes the
 // Merkle root of every allowlisted member's hashed secret.
-export circuit openEnclave(
+constructor(
   name: Opaque<"string">,
   labels: Vector<3, Opaque<"string">>,
   numRooms: Uint<8>,
