@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #14141a;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Soft amber lantern glow used only behind the door illustration —
+   a single deliberate ambient moment, not a scattered effect. */
+.lantern-glow {
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(232, 163, 61, 0.16) 0%,
+    rgba(232, 163, 61, 0.04) 45%,
+    transparent 70%
+  );
+}
+
+@keyframes door-open {
+  0% {
+    opacity: 0.4;
+    transform: scaleX(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.door-open {
+  animation: door-open 0.5s ease-out 1;
+  transform-origin: center;
+}
+
+*:focus-visible {
+  outline: 2px solid #e8a33d;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
