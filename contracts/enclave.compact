@@ -81,7 +81,7 @@ export circuit enterRoom(roomIndex: Uint<8>): [] {
   const nullifier = persistentHash<Vector<3, Bytes<32>>>(
     [
       secret,
-      persistentHash<Opaque<"string">>(enclaveName),
+      allowlistRoot,
       persistentHash<Uint<8>>(roomIndex)
     ]
   );
