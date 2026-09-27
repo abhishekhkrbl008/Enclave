@@ -3,18 +3,18 @@ import { CompiledContract } from "@midnight-ntwrk/midnight-js-protocol/compact-j
 export * from "./managed/enclave/contract/index.js";
 export * from "./witnesses";
 
-import * as CompiledEnclaveContract from "./managed/enclave/contract/index.js";
+import * as EnclaveContractModule from "./managed/enclave/contract/index.js";
 import * as Witnesses from "./witnesses";
 
-class ContractWrapper extends CompiledEnclaveContract.Contract<Witnesses.EnclavePrivateState> {
+class ContractWrapper extends EnclaveContractModule.Contract<Witnesses.EnclavePrivateState> {
   constructor() {
     super(Witnesses.witnesses);
   }
 }
 
-export const CompiledEnclaveContractContract = CompiledContract.make(
+export const CompiledEnclaveContract = CompiledContract.make(
   "enclave",
-  ContractWrapper as unknown as new () => CompiledEnclaveContract.Contract<Witnesses.EnclavePrivateState>
+  ContractWrapper as unknown as new () => EnclaveContractModule.Contract<Witnesses.EnclavePrivateState>
 ).pipe(
   CompiledContract.withCompiledFileAssets("./managed/enclave")
 );
