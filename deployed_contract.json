@@ -1,6 +1,7 @@
 {
   "network": "preprod",
-  "address": null,
-  "deployedAt": null,
-  "note": "Populate this after running `compact compile` and deploying enclave.compact to Preprod. The app refuses to simulate transactions when this is null."
+  "contractAddress": "3127f7a52de07d2b749fb3787bc161e451a0054e99328fdc65089a7c5ac79ab5",
+  "address": "3127f7a52de07d2b749fb3787bc161e451a0054e99328fdc65089a7c5ac79ab5",
+  "explorerUrl": "https://preprod.midnight.network/contract/3127f7a52de07d2b749fb3787bc161e451a0054e99328fdc65089a7c5ac79ab5",
+  "deployedAt": "2026-09-27T18:42:59.000Z"
 }
