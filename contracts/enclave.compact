@@ -53,8 +53,10 @@ export circuit openEnclave(
   roomCount = numRooms;
   allowlistRoot = root;
   isOpen = true;
-  for (const i of 0..numRooms) {
-    roomVisits.insert(disclose(i), default<Counter>);
+  for (const i of 0..3) {
+    if (as<Uint<8>>(i) < numRooms) {
+      roomVisits.insert(disclose(as<Uint<8>>(i)), default<Counter>);
+    }
   }
 }
 
