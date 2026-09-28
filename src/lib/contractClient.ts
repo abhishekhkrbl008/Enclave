@@ -87,6 +87,7 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
     const { findDeployedContract } = await import("@midnight-ntwrk/midnight-js-contracts");
     
     // Create a provider from the connected wallet
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const providers = {
       walletProvider: {
         windowMidnightWallet: params.wallet
@@ -95,12 +96,13 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
 
     const contractInstance = await findDeployedContract(providers, {
       contractAddress: deployedContract.address as string,
-      contract: contract as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      compiledContract: contract as any,
     });
 
     // Execute the real circuit call
     const tx = await contractInstance.callTx.enterRoom(params.roomIndex);
-    const txHash = tx.txHash;
+    const txHash = tx.public.txHash;
     
     return {
       txHash,
