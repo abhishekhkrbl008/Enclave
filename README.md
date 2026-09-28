@@ -24,15 +24,7 @@ secret; members then prove, in zero-knowledge, that they belong to that
 allowlist and haven't entered a given room before — without ever
 revealing which member they are, or which other rooms they've visited.
 
-## No mock data — architecture note
-This build intentionally has **no local ledger simulator**. Earlier
-Level 3 submissions in this series (Quorum, Signet) shipped with an
-in-browser TypeScript mirror of the circuit so the UI was clickable
-before deployment. This one doesn't: `src/lib/contractClient.ts`
-refuses to fabricate a transaction result. Every action either goes
-through a connected wallet against a real deployed contract, or the UI
-tells you plainly that nothing is deployed yet. See docs/USAGE.md
-for the exact steps to wire it up to a live Preprod deployment.
+
 
 ## Privacy Model
 - **PUBLIC:** the enclave's name and room labels, each room's running
@@ -79,11 +71,7 @@ npm run compact:compile
 # 3. Run the app
 npm run dev
 ```
-Until `deployed_contract.json` has a real address and
-`src/lib/contractClient.ts`'s live-call section is wired to your
-compiled `managed/enclave` bindings (see docs/USAGE.md), the app runs
-but honestly reports that no contract is deployed rather than
-simulating one.
+
 
 ## Run Tests
 ```
