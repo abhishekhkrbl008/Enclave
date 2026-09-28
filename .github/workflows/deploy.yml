@@ -71,3 +71,9 @@ jobs:
           path: |
             preprod-deployment/cli/deployment.json
             deployed_contract.json
+
+      - name: Commit deployed contract address
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: Auto-update deployed_contract.json with new Preprod address"
+          file_pattern: "deployed_contract.json"
