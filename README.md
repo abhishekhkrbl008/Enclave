@@ -8,7 +8,7 @@
 ## Contract Address
 | Network  | Address                          |
 |----------|-----------------------------------|
-| Preprod  | `3127f7a52de07d2b749fb3787bc161e451a0054e99328fdc65089a7c5ac79ab5` |
+| Preprod  | `e64d9f9a2fda1aba27ad9545a0c64c81de66833d31ccf7fd034d93f4d07dd649` |
 
 ## What This Does
 Enclave gates a set of private "rooms" behind a single allowlist. A

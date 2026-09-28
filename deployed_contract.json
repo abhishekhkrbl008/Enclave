@@ -1,7 +1,7 @@
 {
   "network": "preprod",
-  "contractAddress": "3127f7a52de07d2b749fb3787bc161e451a0054e99328fdc65089a7c5ac79ab5",
-  "address": "3127f7a52de07d2b749fb3787bc161e451a0054e99328fdc65089a7c5ac79ab5",
-  "explorerUrl": "https://preprod.midnight.network/contract/3127f7a52de07d2b749fb3787bc161e451a0054e99328fdc65089a7c5ac79ab5",
-  "deployedAt": "2026-09-27T18:42:59.000Z"
+  "contractAddress": "e64d9f9a2fda1aba27ad9545a0c64c81de66833d31ccf7fd034d93f4d07dd649",
+  "address": "e64d9f9a2fda1aba27ad9545a0c64c81de66833d31ccf7fd034d93f4d07dd649",
+  "explorerUrl": "https://preprod.midnight.network/contract/e64d9f9a2fda1aba27ad9545a0c64c81de66833d31ccf7fd034d93f4d07dd649",
+  "deployedAt": "2026-09-28T12:41:26.000Z"
 }
