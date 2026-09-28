@@ -36,12 +36,12 @@ export function Header({
         </div>
 
         <div className="flex flex-col items-end gap-1">
-          {status === "connected" && address ? (
+          {status === "connected" ? (
             <button
               onClick={onDisconnect}
               className="font-mono text-xs text-slate-light border border-slate/40 rounded px-3 py-1.5 hover:bg-slate/10 transition-colors"
             >
-              {walletName ?? "wallet"} · {truncate(address)}
+              {walletName ?? "wallet"} {address ? `· ${truncate(address)}` : "· Connected"}
             </button>
           ) : (
             <button
