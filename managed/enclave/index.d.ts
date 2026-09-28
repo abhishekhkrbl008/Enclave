@@ -1,1 +1,1 @@
-export declare const contract: any; export declare const ledger: any;
+export declare const contract: unknown; export declare const ledger: unknown;
