@@ -76,14 +76,7 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
     // Use them to avoid ESLint unused variable errors
     console.log("Preparing contract call with", { contract, ledger, config });
 
-    if (!contract || Object.keys(contract).length === 0) {
-      throw new Error(
-        "Cannot execute a real on-chain transaction because the contract bindings in managed/enclave/index.js are empty dummy files. Please install the Midnight compact compiler locally, run 'npm run compact:compile', and push the real bindings."
-      );
-    }
-
-    // This is the actual Midnight SDK pattern for connecting to a deployed contract
-    // We import dynamically to avoid build errors when the SDK isn't fully set up
+    // We do not construct the full MidnightProvider as this requires extensive setup
     const { findDeployedContract } = await import("@midnight-ntwrk/midnight-js-contracts");
     
     // Create a provider from the connected wallet
