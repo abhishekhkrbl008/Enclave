@@ -1,0 +1,39 @@
+name: Compile Compact Contract
+
+on:
+  push:
+    paths:
+      - 'contracts/**'
+      - 'package.json'
+      - '.github/workflows/compile-compact.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  compile-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Compact Compiler
+        uses: midnightntwrk/setup-compact-action@836895c8fffbbea6bd986af2b17e8941ff29d1f8
+        with:
+          compact-version: "0.31.0"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compile Compact Contract
+        run: |
+          # Create output directory if it doesn't exist
+          mkdir -p managed/enclave
+          # Compile the contract
+          compact compile contracts/enclave.compact managed/enclave
+
+      - name: Commit compiled bindings
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: Auto-compile Compact contracts"
+          file_pattern: "managed/enclave/*"
