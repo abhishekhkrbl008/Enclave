@@ -175,7 +175,10 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
       privateStateId: "enclave",
       initialPrivateState: {
         memberSecret: memberSecretBytes,
-        memberPath: { leaf: memberSecretBytes, path: [] },
+        memberPath: { 
+          leaf: memberSecretBytes, 
+          path: Array(10).fill({ sibling: { field: 0n }, goes_left: false }) 
+        },
       },
     });
     console.debug("[contractClient] Connected to deployed contract at", deployedContract.address);
