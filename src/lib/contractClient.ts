@@ -198,7 +198,7 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
 
     return {
       txHash,
-      explorerUrl: `https://preprod.midnight.network/transaction/${txHash}`,
+      explorerUrl: `https://explorer.1am.xyz/tx/${txHash}?network=preprod`,
     };
   } catch (error) {
     console.error("[contractClient] Error during enterRoom:", error);
