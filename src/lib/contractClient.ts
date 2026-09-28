@@ -87,17 +87,16 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
     const { findDeployedContract } = await import("@midnight-ntwrk/midnight-js-contracts");
     
     // Create a provider from the connected wallet
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const providers = {
       walletProvider: {
         windowMidnightWallet: params.wallet
       }
-    } as any; // Using any for providers as constructing the full MidnightProvider requires extensive setup
+    }; // We do not construct the full MidnightProvider as this requires extensive setup
 
+    // @ts-expect-error - We bypass provider and contract type checking here because the dummy managed/enclave bindings do not provide the real types.
     const contractInstance = await findDeployedContract(providers, {
       contractAddress: deployedContract.address as string,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      compiledContract: contract as any,
+      compiledContract: contract,
     });
 
     // Execute the real circuit call
