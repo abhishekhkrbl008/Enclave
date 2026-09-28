@@ -93,9 +93,19 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
       privateStateProvider: (() => {
         const store = new Map<string, Uint8Array>();
         return {
+          setContractAddress: () => {},
           get: (k: string) => Promise.resolve(store.get(k) ?? null),
           set: (k: string, v: Uint8Array) => { store.set(k, v); return Promise.resolve(); },
           remove: (k: string) => { store.delete(k); return Promise.resolve(); },
+          clear: () => { store.clear(); return Promise.resolve(); },
+          setSigningKey: () => Promise.resolve(),
+          getSigningKey: () => Promise.resolve(null),
+          removeSigningKey: () => Promise.resolve(),
+          clearSigningKeys: () => Promise.resolve(),
+          exportPrivateStates: () => Promise.resolve({ format: "midnight-private-state-export", encryptedPayload: "", salt: "" }),
+          importPrivateStates: () => Promise.resolve({ imported: 0, skipped: 0, overwritten: 0 }),
+          exportSigningKeys: () => Promise.resolve({ format: "midnight-signing-key-export", encryptedPayload: "", salt: "" }),
+          importSigningKeys: () => Promise.resolve({ imported: 0, skipped: 0, overwritten: 0 }),
         };
       })(),
       zkConfigProvider,
