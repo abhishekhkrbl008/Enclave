@@ -85,8 +85,8 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
     const { fromHex, toHex } = await import("@midnight-ntwrk/compact-runtime");
     console.debug("[contractClient] Midnight SDK providers loaded");
 
-    // Step 5: Build ZK config provider (serves prover keys from /public/ folder)
-    const zkConfigProvider = new FetchZkConfigProvider(window.location.origin, fetch.bind(window));
+    // Step 5: Build ZK config provider (serves prover keys from the deployed managed folder)
+    const zkConfigProvider = new FetchZkConfigProvider(window.location.origin + "/managed/enclave", fetch.bind(window));
 
     // Step 6: Construct the full providers object matching the official DApp pattern
     const providers = {
