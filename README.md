@@ -8,7 +8,7 @@
 ## Contract Address
 | Network  | Address                          |
 |----------|-----------------------------------|
-| Preprod  | `e64d9f9a2fda1aba27ad9545a0c64c81de66833d31ccf7fd034d93f4d07dd649` |
+| Preprod  | [Contract 0xe64d9f9a… \| Midnight Explorer](https://preprod.midnightexplorer.com/contracts/0xe64d9f9a2fda1aba27ad9545a0c64c81de66833d31ccf7fd034d93f4d07dd649) |
 
 ## What This Does
 Enclave gates a set of private "rooms" behind a single allowlist. A
