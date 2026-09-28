@@ -102,9 +102,9 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
           getSigningKey: () => Promise.resolve(null),
           removeSigningKey: () => Promise.resolve(),
           clearSigningKeys: () => Promise.resolve(),
-          exportPrivateStates: () => Promise.resolve({ format: "midnight-private-state-export", encryptedPayload: "", salt: "" }),
+          exportPrivateStates: () => Promise.resolve({ format: "midnight-private-state-export" as const, encryptedPayload: "", salt: "" }),
           importPrivateStates: () => Promise.resolve({ imported: 0, skipped: 0, overwritten: 0 }),
-          exportSigningKeys: () => Promise.resolve({ format: "midnight-signing-key-export", encryptedPayload: "", salt: "" }),
+          exportSigningKeys: () => Promise.resolve({ format: "midnight-signing-key-export" as const, encryptedPayload: "", salt: "" }),
           importSigningKeys: () => Promise.resolve({ imported: 0, skipped: 0, overwritten: 0 }),
         };
       })(),
@@ -147,20 +147,21 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
     const encoded = new TextEncoder().encode(params.memberSecret);
     memberSecretBytes.set(encoded.slice(0, 32));
 
-    // Step 8: Instantiate the compiled contract with witnesses
-    const contractInstance = new EnclaveBindings.Contract({
-      memberSecret: ({ privateState }: { privateState: { memberSecret: Uint8Array; memberPath: { leaf: Uint8Array; path: { sibling: { field: bigint }; goes_left: boolean }[] } } }) =>
-        [privateState, privateState.memberSecret] as [typeof privateState, Uint8Array],
-      memberPath: ({ privateState }: { privateState: { memberSecret: Uint8Array; memberPath: { leaf: Uint8Array; path: { sibling: { field: bigint }; goes_left: boolean }[] } } }) =>
-        [privateState, privateState.memberPath] as [typeof privateState, typeof privateState.memberPath],
-    });
+    // Step 8: Instantiate the compiled contract with witnesses using the SDK pattern
+    const { CompiledContract } = await import("@midnight-ntwrk/midnight-js-protocol/compact-js");
+    const contractInstance = CompiledContract.make("enclave", EnclaveBindings.Contract).pipe(
+      CompiledContract.withWitnesses({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        memberSecret: ({ privateState }: any) => [privateState, privateState.memberSecret],
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        memberPath: ({ privateState }: any) => [privateState, privateState.memberPath],
+      }),
+      CompiledContract.withCompiledFileAssets("/managed/enclave")
+    );
     console.debug("[contractClient] Contract instance ready:", contractInstance);
 
-    // Step 9: Connect to the already-deployed contract on Preprod
-    // findDeployedContract requires compiledContract (a wrapped CompiledContract object).
-    // Since we don't have CompiledContract.make() available, we use @ts-expect-error to
-    // pass the raw Contract instance and let the SDK resolve it at runtime.
-    // @ts-expect-error - Provider/contract type complexity; raw Contract instance passed as compiledContract
+    // findDeployedContract now receives a proper CompiledContract object
+    // @ts-expect-error - Contract types are very complex; this safely bypasses TypeScript
     const deployedInstance = await findDeployedContract(providers, {
       contractAddress: deployedContract.address,
       compiledContract: contractInstance,
