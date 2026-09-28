@@ -18,7 +18,7 @@ export interface InjectedWallet {
   apiVersion: string;
   isEnabled: () => Promise<boolean>;
   enable?: () => Promise<WalletApi>;
-  connect?: (networkId?: string) => Promise<any>;
+  connect?: (networkId?: string) => Promise<unknown>;
 }
 
 export interface WalletApi {
@@ -68,7 +68,7 @@ export async function connectWallet(walletId?: string): Promise<{
     throw new Error("The requested wallet is not installed.");
   }
 
-  let api: any;
+  let api: unknown;
   if (typeof target.wallet.connect === "function") {
     try {
       api = await target.wallet.connect("preprod");
@@ -81,20 +81,21 @@ export async function connectWallet(walletId?: string): Promise<{
     throw new Error(`Wallet ${target.wallet.name} does not provide enable() or connect().`);
   }
 
+  const walletApi = api as Record<string, unknown>;
   let address = "";
-  if (api.state && typeof api.state === "function") {
-    const state = await api.state();
+  if (walletApi.state && typeof walletApi.state === "function") {
+    const state = await walletApi.state() as { address: string };
     address = state.address;
-  } else if (api.address) {
-    address = api.address;
+  } else if (typeof walletApi.address === "string") {
+    address = walletApi.address;
   }
 
   let serviceUriConfig;
-  if (api.serviceUriConfig && typeof api.serviceUriConfig === "function") {
-    serviceUriConfig = await api.serviceUriConfig();
-  } else if (api.getConfiguration && typeof api.getConfiguration === "function") {
-    serviceUriConfig = await api.getConfiguration();
+  if (walletApi.serviceUriConfig && typeof walletApi.serviceUriConfig === "function") {
+    serviceUriConfig = await walletApi.serviceUriConfig() as { nodeUri: string; indexerUri: string; proverServerUri: string };
+  } else if (walletApi.getConfiguration && typeof walletApi.getConfiguration === "function") {
+    serviceUriConfig = await walletApi.getConfiguration() as { nodeUri: string; indexerUri: string; proverServerUri: string };
   }
 
-  return { address, walletName: target.wallet.name, api, serviceUriConfig };
+  return { address, walletName: target.wallet.name, api: api as WalletApi, serviceUriConfig };
 }
