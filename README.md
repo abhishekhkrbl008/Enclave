@@ -4,6 +4,9 @@
 
 ## Live Demo
 [https://enclave-three.vercel.app](https://enclave-three.vercel.app)
+<br/>
+<img src="./images/product%20ui.png" alt="Product UI" width="600" />
+<img src="./images/room%20dshbaord.png" alt="Dashboard" width="600" />
 
 ## Demo Video
 [Watch the Demo Video on Google Drive](https://drive.google.com/file/d/1VuM34C3HkYBMYBCXla46-Ti1a7VlqpHc/view?usp=sharing)
@@ -11,8 +14,8 @@
 ## Contract Address
 | Network  | Address                          |
 |----------|-----------------------------------|
-| Preprod  | [Contract 0xe64d9f9a… \| Midnight Explorer](https://preprod.midnightexplorer.com/contracts/0xe64d9f9a2fda1aba27ad9545a0c64c81de66833d31ccf7fd034d93f4d07dd649) |
-| Preprod TX | [Transaction 35595b6b… \| 1AM Explorer](https://explorer.1am.xyz/tx/35595b6b7ac6fc8f71ce2d0dcf19ef0c6410c6bd0baa717a12294e00ea18d109?network=preprod) |
+| Preprod  | [Contract 0xe64d9f9a… \| Midnight Explorer](https://preprod.midnightexplorer.com/contracts/0xe64d9f9a2fda1aba27ad9545a0c64c81de66833d31ccf7fd034d93f4d07dd649)<br/><br/><img src="./images/contract%20on%20chain.png" alt="Contract On-Chain" width="600" /> |
+| Preprod TX | [Transaction 35595b6b… \| 1AM Explorer](https://explorer.1am.xyz/tx/35595b6b7ac6fc8f71ce2d0dcf19ef0c6410c6bd0baa717a12294e00ea18d109?network=preprod)<br/><br/><img src="./images/transaction%20onchain.png" alt="Transaction On-Chain" width="600" /> |
 
 ## What This Does
 Enclave gates a set of private "rooms" behind a single allowlist. A
@@ -86,6 +89,7 @@ simulating one.
 ```
 npm test
 ```
+<img src="./images/test%20output.png" alt="Test Output" width="600" />
 
 ## CI/CD
 On every push and pull request to `main`, the GitHub Actions pipeline
