@@ -64,7 +64,7 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
   }
   
   try {
-    const { contract, ledger } = await import("../../managed/enclave/index.js");
+    const { contract, ledger } = await import("../../managed/enclave/contract/index.js");
     
     // Build the exact provider based on wallet configuration
     const config = await params.wallet.serviceUriConfig?.() || {
