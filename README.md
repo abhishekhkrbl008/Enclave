@@ -1,14 +1,14 @@
 # Enclave
-![CI](https://github.com/YOUR_USERNAME/enclave/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/abhishekhkrbl008/Enclave/actions/workflows/ci.yml/badge.svg)
 > Prove membership without revealing identity. Built on Midnight.
 
 ## Live Demo
-[LIVE URL — add after deploying, e.g. Vercel/Netlify]
+[https://enclave-three.vercel.app](https://enclave-three.vercel.app)
 
 ## Contract Address
 | Network  | Address                          |
 |----------|-----------------------------------|
-| Preprod  | `[CONTRACT ADDRESS — REQUIRED]`    |
+| Preprod  | `3127f7a52de07d2b749fb3787bc161e451a0054e99328fdc65089a7c5ac79ab5` |
 
 ## What This Does
 Enclave gates a set of private "rooms" behind a single allowlist. A
