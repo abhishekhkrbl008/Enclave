@@ -112,7 +112,8 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
       proofProvider: httpClientProofProvider(serviceUris.proverServerUri, zkConfigProvider),
       publicDataProvider: indexerPublicDataProvider(
         serviceUris.indexerUri,
-        serviceUris.indexerWsUri ?? serviceUris.indexerUri.replace("http", "ws"),
+        serviceUris.indexerWsUri ?? serviceUris.indexerUri.replace("https", "wss").replace("http", "ws"),
+        window.WebSocket, // Use browser-native WebSocket instead of isomorphic-ws which fails in browser
       ),
       walletProvider: {
         getCoinPublicKey: () => coinPublicKey,
@@ -156,11 +157,14 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
     console.debug("[contractClient] Contract instance ready:", contractInstance);
 
     // Step 9: Connect to the already-deployed contract on Preprod
-    // @ts-expect-error - Provider/contract type complexity from SDK
+    // findDeployedContract requires compiledContract (a wrapped CompiledContract object).
+    // Since we don't have CompiledContract.make() available, we use @ts-expect-error to
+    // pass the raw Contract instance and let the SDK resolve it at runtime.
+    // @ts-expect-error - Provider/contract type complexity; raw Contract instance passed as compiledContract
     const deployedInstance = await findDeployedContract(providers, {
       contractAddress: deployedContract.address,
-      contract: contractInstance,
-      privateStateKey: "enclave",
+      compiledContract: contractInstance,
+      privateStateId: "enclave",
       initialPrivateState: {
         memberSecret: memberSecretBytes,
         memberPath: { leaf: memberSecretBytes, path: [] },
