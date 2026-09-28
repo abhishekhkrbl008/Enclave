@@ -5,10 +5,14 @@
 ## Live Demo
 [https://enclave-three.vercel.app](https://enclave-three.vercel.app)
 
+## Demo Video
+[Watch the Demo Video on Google Drive](https://drive.google.com/file/d/1VuM34C3HkYBMYBCXla46-Ti1a7VlqpHc/view?usp=sharing)
+
 ## Contract Address
 | Network  | Address                          |
 |----------|-----------------------------------|
 | Preprod  | [Contract 0xe64d9f9a… \| Midnight Explorer](https://preprod.midnightexplorer.com/contracts/0xe64d9f9a2fda1aba27ad9545a0c64c81de66833d31ccf7fd034d93f4d07dd649) |
+| Preprod TX | [Transaction 35595b6b… \| 1AM Explorer](https://explorer.1am.xyz/tx/35595b6b7ac6fc8f71ce2d0dcf19ef0c6410c6bd0baa717a12294e00ea18d109?network=preprod) |
 
 ## What This Does
 Enclave gates a set of private "rooms" behind a single allowlist. A
