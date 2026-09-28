@@ -18,20 +18,23 @@ export function EnclaveDoor({
   const [roomIndex, setRoomIndex] = useState<number>(0);
   const [phase, setPhase] = useState<Phase>("no-secret");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [successData, setSuccessData] = useState<{txHash: string, explorerUrl: string} | null>(null);
 
   function handleGenerateSecret() {
     setSecret(randomSecretHex());
     setPhase("ready");
+    setSuccessData(null);
   }
 
   async function handleEnter() {
     if (!secret || !walletApi) return;
     setPhase("proving");
     setErrorMsg(null);
+    setSuccessData(null);
     try {
-      await submitEnterRoom({ wallet: walletApi, memberSecret: secret, roomIndex });
-      // A real success path would land here with a tx hash + explorer
-      // link once contractClient's live wiring is completed.
+      const result = await submitEnterRoom({ wallet: walletApi, memberSecret: secret, roomIndex });
+      setSuccessData(result);
+      setPhase("ready");
     } catch (e) {
       setErrorMsg(e instanceof Error ? e.message : "The transaction could not be submitted.");
       setPhase("error");
@@ -88,6 +91,21 @@ export function EnclaveDoor({
               <p className="text-sm text-amber-light border border-amber/30 bg-amber/5 rounded-sm px-3 py-2 leading-relaxed">
                 {errorMsg}
               </p>
+            )}
+
+            {successData && (
+              <div className="text-sm text-emerald-400 border border-emerald-500/30 bg-emerald-500/5 rounded-sm px-3 py-2 leading-relaxed">
+                <p>Entry verified!</p>
+                <p className="text-xs truncate font-mono mt-1 opacity-70">Tx: {successData.txHash}</p>
+                <a 
+                  href={successData.explorerUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs underline hover:text-emerald-300 mt-2 inline-block"
+                >
+                  View on Explorer ↗
+                </a>
+              </div>
             )}
 
             <button
