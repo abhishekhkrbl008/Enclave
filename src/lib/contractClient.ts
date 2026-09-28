@@ -42,6 +42,13 @@ export async function submitEnterRoom(params: EnterRoomParams): Promise<TxResult
   }
 
   try {
+    // Step 0: Set Network ID (required by Midnight SDK)
+    const { setNetworkId } = await import("@midnight-ntwrk/midnight-js-network-id");
+    // Preprod uses 'preprod' network ID, but we can fall back to the one in deployedContract.json
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setNetworkId((deployedContract.network as any) || "preprod");
+    console.debug("[contractClient] Network ID set to:", deployedContract.network || "preprod");
+
     // Step 1: Load real compiled bindings
     const EnclaveBindings = await import("../../managed/enclave/contract/index.js");
     console.debug("[contractClient] Bindings loaded. Exports:", Object.keys(EnclaveBindings));
